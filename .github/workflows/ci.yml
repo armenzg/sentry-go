@@ -41,11 +41,11 @@ jobs:
       - name: Setup golang (tip)
         if: matrix.go-version == 'tip'
         run: |
-          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
-          cd $HOME/gotip/src
+          git clone https://go.googlesource.com/go gotip
+          gotip/src
           ./make.bash
-          echo "GOROOT=$HOME/gotip" >> $GITHUB_ENV
-          echo "PATH=$HOME/gotip:$PATH" >> $GITHUB_ENV
+          echo "GOROOT=$GITHUB_WORKSPACE/gotip" >> $GITHUB_ENV
+          echo "PATH=$GITHUB_WORKSPACE/gotip:$PATH" >> $GITHUB_ENV
       - name: Adjustments for Module mode enabled
         if: matrix.go111module == 'on'
         run: |
