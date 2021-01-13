@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 5
     strategy:
       matrix:
-        go-version: ["tip"] # , "1.15", "1.14", "1.13"]
+        go-version: ["tip", "1.15", "1.14", "1.13"]
         go111module: ["on", "off"]
         include:
           # includes goflags when go111module is on
@@ -38,10 +38,9 @@ jobs:
         run: |
           git clone https://go.googlesource.com/go $HOME/gotip
           cd $HOME/gotip/src
-          export GOROOT=$HOME/gotip
           ./make.bash
-          echo "GOROOT=$GOROOT" >> $GITHUB_ENV
-          echo "PATH=$GOROOT/bin:$PATH" >> $GITHUB_ENV
+          echo "GOROOT=$HOME/gotip" >> $GITHUB_ENV
+          echo "PATH=$HOME/gotip/bin:$PATH" >> $GITHUB_ENV
       - uses: actions/checkout@v2
         with:
           # Relative path under Github workspace
