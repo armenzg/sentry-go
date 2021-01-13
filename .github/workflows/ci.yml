@@ -35,11 +35,11 @@ jobs:
           # Getting all history enables using `git merge-base origin/master HEAD`
           fetch-depth: 0
       - uses: actions/setup-go@v2
-        if: matrix.go != 'tip'
+        if: matrix.go-version != 'tip'
         with:
           go-version: ${{ matrix.go-version}}
       - name: Setup golang (tip)
-        if: matrix.go == 'tip'
+        if: matrix.go-version == 'tip'
         run: |
           git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
           cd $HOME/gotip/src
