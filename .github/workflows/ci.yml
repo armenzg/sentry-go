@@ -28,12 +28,6 @@ jobs:
       run:
         working-directory: ${{ github.workspace }}/src/github.com/getsentry/sentry-go
     steps:
-      - uses: actions/checkout@v2
-        with:
-          # Relative path under Github workspace
-          path: ${{ github.workspace }}/src/github.com/getsentry/sentry-go
-          # Getting all history enables using `git merge-base origin/master HEAD`
-          fetch-depth: 0
       - uses: actions/setup-go@v2
         if: matrix.go-version != 'tip'
         with:
@@ -49,6 +43,12 @@ jobs:
           ./make.bash
           echo "GOROOT=$GOROOT" >> $GITHUB_ENV
           echo "PATH=$GOROOT/bin:$PATH" >> $GITHUB_ENV
+      - uses: actions/checkout@v2
+        with:
+          # Relative path under Github workspace
+          path: ${{ github.workspace }}/src/github.com/getsentry/sentry-go
+          # Getting all history enables using `git merge-base origin/master HEAD`
+          fetch-depth: 0
       - name: Adjustments for Module mode enabled
         if: matrix.go111module == 'on'
         run: |
