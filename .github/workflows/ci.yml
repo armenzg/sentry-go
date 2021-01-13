@@ -45,7 +45,7 @@ jobs:
           gotip/src
           ./make.bash
           echo "GOROOT=$GITHUB_WORKSPACE/gotip" >> $GITHUB_ENV
-          echo "PATH=$GITHUB_WORKSPACE/gotip:$PATH" >> $GITHUB_ENV
+          echo "PATH=$GITHUB_WORKSPACE/gotip/bin:$PATH" >> $GITHUB_ENV
       - name: Adjustments for Module mode enabled
         if: matrix.go111module == 'on'
         run: |
