@@ -40,12 +40,15 @@ jobs:
           go-version: ${{ matrix.go-version}}
       - name: Setup golang (tip)
         if: matrix.go-version == 'tip'
+        # go tool dist: found go.mod file in /home/runner/work/sentry-go/sentry-go/src/github.com/getsentry/sentry-go:
+        # $GOROOT must not be inside a module
         run: |
           git clone https://go.googlesource.com/go gotip
           cd gotip/src
+          export GOROOT=$GITHUB_WORKSPACE/gotip
           ./make.bash
-          echo "GOROOT=$GITHUB_WORKSPACE/gotip" >> $GITHUB_ENV
-          echo "PATH=$GITHUB_WORKSPACE/gotip/bin:$PATH" >> $GITHUB_ENV
+          echo "GOROOT=$GOROOT" >> $GITHUB_ENV
+          echo "PATH=$GOROOT/bin:$PATH" >> $GITHUB_ENV
       - name: Adjustments for Module mode enabled
         if: matrix.go111module == 'on'
         run: |
