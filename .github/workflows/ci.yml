@@ -44,8 +44,8 @@ jobs:
           git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
           cd $HOME/gotip/src
           ./make.bash
-          echo "::set-env name=GOROOT::$HOME/gotip"
-          echo "::add-path::$HOME/gotip/bin"
+          echo "GOROOT=$HOME/gotip" >> $GITHUB_ENV
+          echo "PATH=$HOME/gotip:$PATH" >> $GITHUB_ENV
       - name: Adjustments for Module mode enabled
         if: matrix.go111module == 'on'
         run: |
