@@ -34,7 +34,7 @@ jobs:
           go-version: ${{ matrix.go-version}}
       - name: Run setup-go for tip
         if: matrix.go-version == 'tip'
-        working-directory: $HOME
+        working-directory: ${{ github.workspace }}
         run: |
           git clone https://go.googlesource.com/go $HOME/gotip
           cd $HOME/gotip/src
