@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 5
     strategy:
       matrix:
-        go-version: ["1.15", "1.14", "1.13"]
+        go-version: ["tip", "1.15", "1.14", "1.13"]
         go111module: ["on", "off"]
         include:
           # includes goflags when go111module is on
@@ -35,8 +35,17 @@ jobs:
           # Getting all history enables using `git merge-base origin/master HEAD`
           fetch-depth: 0
       - uses: actions/setup-go@v2
+        if: matrix.go != 'tip'
         with:
           go-version: ${{ matrix.go-version}}
+      - name: Setup golang (tip)
+        if: matrix.go == 'tip'
+        run: |
+          git clone --depth=1 https://go.googlesource.com/go $HOME/gotip
+          cd $HOME/gotip/src
+          ./make.bash
+          echo "::set-env name=GOROOT::$HOME/gotip"
+          echo "::add-path::$HOME/gotip/bin"
       - name: Adjustments for Module mode enabled
         if: matrix.go111module == 'on'
         run: |
