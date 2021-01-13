@@ -38,8 +38,8 @@ jobs:
         if: matrix.go-version != 'tip'
         with:
           go-version: ${{ matrix.go-version}}
-      - name: Setup golang (tip)
-        if: matrix.go-version == 'tip'
+      - name: Run setup-go for tip (only module on)
+        if: matrix.go-version == 'tip' && matrix.go111module == 'on'
         # go tool dist: found go.mod file in /home/runner/work/sentry-go/sentry-go/src/github.com/getsentry/sentry-go:
         # $GOROOT must not be inside a module
         run: |
