@@ -1,8 +1,9 @@
 name: go-workflow
 on:
   push:
-    branches:
-      - master
+    #  XXX: Remove at the end
+    # branches:
+    #   - master
   pull_request:
 jobs:
   golang-tests:
