@@ -42,7 +42,7 @@ jobs:
         if: matrix.go-version == 'tip'
         run: |
           git clone https://go.googlesource.com/go gotip
-          gotip/src
+          cd gotip/src
           ./make.bash
           echo "GOROOT=$GITHUB_WORKSPACE/gotip" >> $GITHUB_ENV
           echo "PATH=$GITHUB_WORKSPACE/gotip/bin:$PATH" >> $GITHUB_ENV
